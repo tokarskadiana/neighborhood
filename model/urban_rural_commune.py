@@ -20,3 +20,7 @@ class UrbanRuralCommune(Community):
         for rural_area in RuralArea.get_rural_areas_list():
             if rural_area.get_commune_id == self.id:
                 return rural_area
+
+    @classmethod
+    def get_type_number(cls):
+        return cls.__type_number

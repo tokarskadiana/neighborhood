@@ -2,7 +2,6 @@ from model.unit import Unit
 
 
 class Community(Unit):
-    __type_number = None
     __communities_list = []
 
     def __init__(self, name, id, county_id):
@@ -11,10 +10,6 @@ class Community(Unit):
 
     def get_county_id(self):
         return self.county_id
-
-    @classmethod
-    def get_type_number(cls):
-        return cls.__type_number
 
     @classmethod
     def create(cls, name, id, county_id):

@@ -11,14 +11,22 @@ from model.district import District
 
 
 class Data:
+
     def __init__(self, filename):
         self.filename = filename
+
+    def convert(self, s):
+        try:
+            s = int(s)
+        except ValueError:
+            pass
+        return s
 
     def open_csv(self):
         data = []
         with open(self.filename) as csv_file:
             for row in csv.reader(csv_file, delimiter='\t'):
-                data.append(row)
+                data.append([self.convert(s) for s in row])
         return data
 
     def create_towns(self):
@@ -40,22 +48,23 @@ class Data:
         for row in self.open_csv():
             if row[3] == RuralCommune.get_type_number():
                 RuralCommune.create(row[4], row[2], row[1])
-            elif row[3] == UrbanCommune.get_type_number():
-                RuralCommune.create(row[4], row[2], row[1])
-            elif row[3] == UrbanRuralCommune.get_type_number():
-                RuralCommune.create(row[4], row[2], row[1])
+            if row[3] == UrbanCommune.get_type_number():
+                UrbanCommune.create(row[4], row[2], row[1])
+            if row[3] == UrbanRuralCommune.get_type_number():
+                UrbanRuralCommune.create(row[4], row[2], row[1])
 
     def create_counties(self):
         for row in self.open_csv():
-            if row[2] == '':
-                if row[5] == 'powiat':
-                    County.create(row[4], row[1], row[0])
-                else:
-                    City.create(row[4], row[1], row[0])
+            if row[1]:
+                if not row[2]:
+                    if row[5] == 'powiat':
+                        County.create(row[4], row[1], row[0])
+                    else:
+                        City.create(row[4], row[1], row[0])
 
     def create_district(self):
         for row in self.open_csv():
-            if row[1] == '':
+            if not row[1]:
                 District.create(row[4], row[0])
 
     def create_data(self):

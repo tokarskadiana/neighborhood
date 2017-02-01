@@ -4,7 +4,9 @@ from read_data import Data
 from model.district import District
 from model.county import County
 from model.community import Community
-
+from model.rural_commune import RuralCommune
+from model.rural_area import RuralArea
+from model.town import Town
 def main():
     menu = '''
     --------MENU--------
@@ -22,11 +24,11 @@ def main():
         print(menu)
         option = input('\nChose the option:')
         if option == '1':
-            print(District.get_districts_list())
+            pass
         elif option == '2':
-            print(County.get_counties_list())
+            pass
         elif option == '3':
-            print(Community.get_communities_list())
+            pass
         elif option == '4':
             pass
         elif option == '5':
