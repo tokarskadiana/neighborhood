@@ -6,8 +6,6 @@ class City(County):
     '''
     Represents city with county rights object
     '''
-    __cities_list = []
-
     def __init__(self, name, id, district_id):
         super().__init__(name, id, district_id)
         self.communities = self.set_communities()
@@ -19,7 +17,3 @@ class City(County):
             if delegacy.get_city_id == self.id:
                 delegacies.append(delegacy)
         return delegacies
-
-    @classmethod
-    def get_cities_list(cls):
-        return cls.__cities_list

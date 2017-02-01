@@ -1,7 +1,9 @@
 import os
 import sys
 from read_data import Data
-
+from model.district import District
+from model.county import County
+from model.community import Community
 
 def main():
     menu = '''
@@ -14,16 +16,17 @@ def main():
     (0) Exit program
     '''
 
+    malopolska = Data('malopolska.csv').create_data()
     while True:
         os.system('clear')
         print(menu)
         option = input('\nChose the option:')
         if option == '1':
-            malopolska = Data('malopolska.csv').create_data()
+            print(District.get_districts_list())
         elif option == '2':
-            pass
+            print(County.get_counties_list())
         elif option == '3':
-            pass
+            print(Community.get_communities_list())
         elif option == '4':
             pass
         elif option == '5':
