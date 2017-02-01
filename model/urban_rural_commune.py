@@ -1,4 +1,4 @@
-from model.community import community
+from model.community import Community
 from model.town import Town
 from model.rural_area import RuralArea
 

@@ -6,6 +6,9 @@ class Delegacy:
         self.name = name
         self.city_id = city_id
 
+    def get_city_id(self):
+        return self.city_id
+
     @classmethod
     def get_type_number(cls):
         return cls.__type_number

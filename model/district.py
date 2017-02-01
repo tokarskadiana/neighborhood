@@ -12,8 +12,8 @@ class District(Unit):
     def set_counties(self):
         counties = []
         for county in County.get_counties_list():
-            if county.get_district_id = self.id:
-                counties.append.(county)
+            if county.get_district_id == self.id:
+                counties.append(county)
         return counties
 
     @classmethod

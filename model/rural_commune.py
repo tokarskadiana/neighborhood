@@ -1,4 +1,4 @@
-from model.community import community
+from model.community import Community
 
 
 class RuralCommune(Community):

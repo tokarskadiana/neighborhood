@@ -1,5 +1,6 @@
 import os
 import sys
+from read_data import Data
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
         print(menu)
         option = input('\nChose the option:')
         if option == '1':
-            pass
+            malopolska = Data('malopolska.csv').create_data()
         elif option == '2':
             pass
         elif option == '3':

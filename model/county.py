@@ -13,7 +13,7 @@ class County(Unit):
     def set_communities(self):
         communities = []
         for community in Community.get_communities_list():
-            if community.get_county_id = self.id:
+            if community.get_county_id == self.id:
                 communities.append(community)
         return communities
 
@@ -22,7 +22,7 @@ class County(Unit):
 
     @classmethod
     def create(cls, name, id, district_id):
-        cls.__counties_list.appent(cls(name, id, district_id))
+        cls.__counties_list.append(cls(name, id, district_id))
 
     @classmethod
     def get_counties_list(cls):
