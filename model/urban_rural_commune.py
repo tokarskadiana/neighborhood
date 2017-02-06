@@ -13,13 +13,19 @@ class UrbanRuralCommune(Community):
 
     def set_town(self):
         for town in Town.get_towns_list():
-            if town.get_commune_id == self.id:
+            if town.get_commune_id() == self.id:
                 return town
 
     def set_rural_area(self):
         for rural_area in RuralArea.get_rural_areas_list():
-            if rural_area.get_commune_id == self.id:
+            if rural_area.get_commune_id() == self.id:
                 return rural_area
+
+    def get_town(self):
+        return self.town
+
+    def get_rural_area(self):
+        return self.rural_area
 
     @classmethod
     def get_type_number(cls):

@@ -9,6 +9,9 @@ class RuralArea:
     def get_commune_id(self):
         return self.__commune_id
 
+    def get_name(self):
+        return self.__name
+
     @classmethod
     def get_type_number(cls):
         return cls.__type_number
