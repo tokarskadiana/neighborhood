@@ -33,26 +33,26 @@ class Data:
     def create_towns(self):
         for row in self.open_csv():
             if row[3] == Town.get_type_number():
-                Town.create(row[4], row[2])
+                Town.create(row[4], row[2], row[0])
 
     def create_rural_areas(self):
         for row in self.open_csv():
             if row[3] == RuralArea.get_type_number():
-                RuralArea.create(row[4], row[2])
+                RuralArea.create(row[4], row[2], row[0])
 
     def create_delegacies(self):
         for row in self.open_csv():
             if row[3] == Delegacy.get_type_number():
-                Delegacy.create(row[4], row[2], row[1])
+                Delegacy.create(row[4], row[2], row[1], row[0])
 
     def create_communities(self):
         for row in self.open_csv():
             if row[3] == RuralCommune.get_type_number():
-                RuralCommune.create(row[4], row[2], row[1])
+                RuralCommune.create(row[4], row[2], row[1], row[0])
             if row[3] == UrbanCommune.get_type_number():
-                UrbanCommune.create(row[4], row[2], row[1])
+                UrbanCommune.create(row[4], row[2], row[1], row[0])
             if row[3] == UrbanRuralCommune.get_type_number():
-                UrbanRuralCommune.create(row[4], row[2], row[1])
+                UrbanRuralCommune.create(row[4], row[2], row[1], row[0])
 
     def create_counties(self):
         for row in self.open_csv():

@@ -5,7 +5,7 @@ from menu import Menu
 
 
 def main():
-    malopolska = Data('malopolska.csv').create_data()
+    malopolska = Data('terc.csv').create_data()
     menu = Menu()
     while True:
         os.system('clear')

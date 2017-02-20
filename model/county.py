@@ -13,7 +13,7 @@ class County(Unit):
     def set_communities(self):
         communities = []
         for community in Community.get_communities_list():
-            if community.get_county_id() == self.id:
+            if community.get_county_id() == self.id and community.get_province_id() == self.get_province_id():
                 communities.append(community)
         return communities
 

@@ -6,26 +6,26 @@ from model.rural_area import RuralArea
 class UrbanRuralCommune(Community):
     __type_number = 3
 
-    def __init__(self, name, id, county_id):
-        super().__init__(name, id, county_id)
-        self.town = self.set_town()
-        self.rural_area = self.set_rural_area()
+    def __init__(self, name, id, county_id, province_id):
+        super().__init__(name, id, county_id, province_id)
+        self.__town = self.set_town()
+        self.__rural_area = self.set_rural_area()
 
     def set_town(self):
         for town in Town.get_towns_list():
-            if town.get_commune_id() == self.id:
+            if town.get_commune_id() == self.id and town.get_province_id() == self.get_province_id():
                 return town
 
     def set_rural_area(self):
         for rural_area in RuralArea.get_rural_areas_list():
-            if rural_area.get_commune_id() == self.id:
+            if rural_area.get_commune_id() == self.id and rural_area.get_province_id() == self.get_province_id():
                 return rural_area
 
     def get_town(self):
-        return self.town
+        return self.__town
 
     def get_rural_area(self):
-        return self.rural_area
+        return self.__rural_area
 
     @classmethod
     def get_type_number(cls):
