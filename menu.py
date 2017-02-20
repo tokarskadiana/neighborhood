@@ -152,24 +152,18 @@ class Menu:
                 continue
 
     def find_multicategory_names(self, province_id):
-        province = Province.find_by_id(province_id)
-        if province:
-            names = province.get_counties()
-            for county in province.get_counties():
-                names = names + county.get_communities()
-                if type(county) == City:
-                    names = names + county.get_delegacies()
-                for community in county.get_communities():
-                    if type(community) == UrbanRuralCommune:
-                        names = names + [community.get_town()]
-                        names = names + [community.get_rural_area()]
-            names = list(map(lambda item: item.get_name(), names))
-            return list(set((Counter(names[:]) - Counter(set(names[:]))).elements()))
-
-    def columns(self, skills_defs, cols=2):
-        pairs = ["\t".join(skills_defs[i:i + cols])
-                 for i in range(0, len(skills_defs), cols)]
-        return "\n".join(pairs)
+        data = County.get_counties_list() + Community.get_communities_list() + Town.get_towns_list() + \
+        RuralArea.get_rural_areas_list() + Delegacy.get_delegacies_list()
+        locations = []
+        for item in data:
+            if item.get_province_id() == province_id:
+                locations.append(item.get_name())
+        counter = Counter(locations)
+        print(counter)
+        for name, count in counter.items():
+            if count <= 1:
+                locations.remove(name)
+        return list(set(locations))
 
     def make_columns(self, list_to, cols):
         list_done = []
@@ -196,7 +190,7 @@ class Menu:
                 names = self.find_multicategory_names(chose)
                 if names:
                     os.system('clear')
-                    print(self.make_columns(names, 4))
+                    print(self.make_columns(sorted(names), 4))
                     input('\nEnter something to back:')
             except ValueError:
                 continue
