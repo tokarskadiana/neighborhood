@@ -3,7 +3,7 @@ from model.community import Community
 
 
 class County(Unit):
-    __counties_list = []
+    __list = []
 
     def __init__(self, name, id, province_id):
         super().__init__(name, id)
@@ -12,8 +12,8 @@ class County(Unit):
 
     def set_communities(self):
         communities = []
-        for community in Community.get_communities_list():
-            if community.get_county_id() == self.id and community.get_province_id() == self.get_province_id():
+        for community in Community.get_list():
+            if community.get_county_id() == self.get_id() and community.get_province_id() == self.get_province_id():
                 communities.append(community)
         return communities
 
@@ -25,8 +25,8 @@ class County(Unit):
 
     @classmethod
     def create(cls, name, id, province_id):
-        cls.__counties_list.append(cls(name, id, province_id))
+        cls.__list.append(cls(name, id, province_id))
 
     @classmethod
-    def get_counties_list(cls):
-        return cls.__counties_list
+    def get_list(cls):
+        return cls.__list

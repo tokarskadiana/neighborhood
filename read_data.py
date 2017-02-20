@@ -69,6 +69,7 @@ class Data:
                 Province.create(row[4], row[0])
 
     def create_data(self):
+        print("Load data.......")
         self.create_towns()
         self.create_rural_areas()
         self.create_delegacies()

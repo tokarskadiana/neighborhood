@@ -28,8 +28,8 @@ class Menu:
         '''
         return menu
 
-    def to_pl(self):
-        to_pl = {Province: 'wojewódstwo',
+    def units(self):
+        units = {Province: 'wojewódstwo',
                  County: 'powiat',
                  City: 'miasto na prawach powiatu',
                  RuralCommune: 'gmina wiejska',
@@ -38,43 +38,54 @@ class Menu:
                  RuralArea: 'obszar wiejski',
                  Town: 'miasto',
                  Delegacy: 'delegatura'}
-        return to_pl
+        return units
 
     def print_provinces(self):
         print('Chose the province to operate on:\n')
-        for province in Province.get_provinces_list():
+        for province in Province.get_list():
             print('[{}] {}'.format(province.get_id(), province.get_name()))
 
-    def view_details(self, province_id):
+    def all_units_list(self):
+        data = County.get_list() + Community.get_list() + Town.get_list() + \
+            RuralArea.get_list() + Delegacy.get_list()
+        return data
+
+    def make_columns(self, list_to, cols):
+        list_done = []
+        n = len(list_to)
+        i = 0
+        while True:
+            if i + cols >= n:
+                list_done.append(list_to[i:])
+                break
+            else:
+                list_done.append(list_to[i:i + cols])
+                i += cols
+        return tabulate(list_done, tablefmt='simple')
+
+    def get_statistics(self, province_id):
         province = Province.find_by_id(province_id)
         if province:
-            to_pl = self.to_pl()
+            units = self.units()
             name = province.get_name()
             counties = province.get_counties()
-            cities = 0
-            delegacies = 0
-            urban_comumnes = 0
-            rural_communes = 0
-            urban_rural_communes = 0
-            towns = 0
-            rural_areas = 0
+            cities, delegacies, urban_communes, rural_communes, urban_rural_communes, towns, rural_areas = (0,)*7
             for county in counties:
                 if type(county) == City:
                     cities += 1
                     delegacies += len(county.get_delegacies())
                 for community in county.get_communities():
                     if type(community) == UrbanCommune:
-                        urban_comumnes += 1
+                        urban_communes += 1
                     elif type(community) == RuralCommune:
                         rural_communes += 1
                     elif type(community) == UrbanRuralCommune:
                         urban_rural_communes += 1
                         towns += 1
                         rural_areas += 1
-
             data = [[Province, 1],
                     [County, len(counties)],
-                    [UrbanCommune, urban_comumnes],
+                    [UrbanCommune, urban_communes],
                     [RuralCommune, rural_communes],
                     [UrbanRuralCommune, urban_rural_communes],
                     [RuralArea, rural_areas],
@@ -82,13 +93,13 @@ class Menu:
                     [City, cities],
                     [Delegacy, delegacies]]
             for item in data:
-                for key, value in to_pl.items():
+                for key, value in units.items():
                     if item[0] == key:
                         item[0] = value
             return name, tabulate(data, tablefmt="simple")
         return None
 
-    def list_statistics(self):
+    def print_statistics(self):
         while True:
             os.system('clear')
             self.print_provinces()
@@ -97,7 +108,7 @@ class Menu:
                 break
             try:
                 chose = int(chose)
-                statistics = self.view_details(chose)
+                statistics = self.get_statistics(chose)
                 if statistics:
                     os.system('clear')
                     print(statistics[0])
@@ -109,8 +120,8 @@ class Menu:
                 continue
 
     def find_longest_names(self):
-        towns = Town.get_towns_list()
-        for county in County.get_counties_list():
+        towns = Town.get_list()
+        for county in County.get_list():
             if type(county) == City:
                 towns.append(county)
         towns = map(lambda town: town.get_name(), towns)
@@ -152,8 +163,7 @@ class Menu:
                 continue
 
     def find_multicategory_names(self, province_id):
-        data = County.get_counties_list() + Community.get_communities_list() + Town.get_towns_list() + \
-        RuralArea.get_rural_areas_list() + Delegacy.get_delegacies_list()
+        data = self.all_units_list()
         locations = []
         for item in data:
             if item.get_province_id() == province_id:
@@ -164,19 +174,6 @@ class Menu:
             if count <= 1:
                 locations.remove(name)
         return list(set(locations))
-
-    def make_columns(self, list_to, cols):
-        list_done = []
-        n = len(list_to)
-        i = 0
-        while True:
-            if i + cols >= n:
-                list_done.append(list_to[i:])
-                break
-            else:
-                list_done.append(list_to[i:i + cols])
-                i += cols
-        return tabulate(list_done, tablefmt='simple')
 
     def print_multicategory_names(self):
         while True:
@@ -197,14 +194,12 @@ class Menu:
 
     def advanced_search(self):  # search in all lists
         os.system('clear')
-        data = Province.get_provinces_list() + County.get_counties_list() + Community.get_communities_list() + \
-            Town.get_towns_list() + RuralArea.get_rural_areas_list() + \
-            Delegacy.get_delegacies_list()
+        data = Province.get_list() + self.all_units_list()
         search = input('Enter word or a part to start search:')
         temp_data = []
         for item in data:
             if search.lower() in item.get_name().lower():
-                for key, value in self.to_pl().items():
+                for key, value in self.units().items():
                     if type(item) == key:
                         temp_data.append([item.get_name(), value])
         if temp_data:

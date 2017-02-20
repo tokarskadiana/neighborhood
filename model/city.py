@@ -13,8 +13,8 @@ class City(County):
 
     def set_delegacies(self):
         delegacies = []
-        for delegacy in Delegacy.get_delegacies_list():
-            if delegacy.get_city_id() == self.id and delegacy.get_province_id() == self.get_province_id():
+        for delegacy in Delegacy.get_list():
+            if delegacy.get_city_id() == self.get_id() and delegacy.get_province_id() == self.get_province_id():
                 delegacies.append(delegacy)
         return delegacies
 

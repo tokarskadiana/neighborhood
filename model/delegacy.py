@@ -3,7 +3,7 @@ from model.unit import Unit
 
 class Delegacy(Unit):
     __type_number = 9
-    __delegacies_list = []
+    __list = []
 
     def __init__(self, name, id, city_id, province_id):
         super().__init__(name, id)
@@ -22,8 +22,8 @@ class Delegacy(Unit):
 
     @classmethod
     def create(cls, name, id, city_id, province_id):
-        cls.__delegacies_list.append(cls(name, id, city_id, province_id))
+        cls.__list.append(cls(name, id, city_id, province_id))
 
     @classmethod
-    def get_delegacies_list(cls):
-        return cls.__delegacies_list
+    def get_list(cls):
+        return cls.__list

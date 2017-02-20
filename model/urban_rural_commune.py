@@ -12,13 +12,13 @@ class UrbanRuralCommune(Community):
         self.__rural_area = self.set_rural_area()
 
     def set_town(self):
-        for town in Town.get_towns_list():
-            if town.get_commune_id() == self.id and town.get_province_id() == self.get_province_id():
+        for town in Town.get_list():
+            if town.get_commune_id() == self.get_id() and town.get_province_id() == self.get_province_id():
                 return town
 
     def set_rural_area(self):
-        for rural_area in RuralArea.get_rural_areas_list():
-            if rural_area.get_commune_id() == self.id and rural_area.get_province_id() == self.get_province_id():
+        for rural_area in RuralArea.get_list():
+            if rural_area.get_commune_id() == self.get_id() and rural_area.get_province_id() == self.get_province_id():
                 return rural_area
 
     def get_town(self):

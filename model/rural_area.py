@@ -1,6 +1,6 @@
 class RuralArea:
     __type_number = 5
-    __rural_areas_list = []
+    __list = []
 
     def __init__(self, name, commune_id, province_id):
         self.__name = name
@@ -22,8 +22,8 @@ class RuralArea:
 
     @classmethod
     def create(cls, name, commune_id, province_id):
-        cls.__rural_areas_list.append(cls(name, commune_id, province_id))
+        cls.__list.append(cls(name, commune_id, province_id))
 
     @classmethod
-    def get_rural_areas_list(cls):
-        return cls.__rural_areas_list
+    def get_list(cls):
+        return cls.__list

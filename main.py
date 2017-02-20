@@ -12,7 +12,7 @@ def main():
         print(menu.options())
         option = input('\nChose the option:')
         if option == '1':
-            menu.list_statistics()
+            menu.print_statistics()
         elif option == '2':
             menu.print_longest_names()
         elif option == '3':

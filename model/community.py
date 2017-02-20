@@ -2,7 +2,7 @@ from model.unit import Unit
 
 
 class Community(Unit):
-    __communities_list = []
+    __list = []
 
     def __init__(self, name, id, county_id, province_id):
         super().__init__(name, id)
@@ -17,8 +17,8 @@ class Community(Unit):
 
     @classmethod
     def create(cls, name, id, county_id, province_id):
-        cls.__communities_list.append(cls(name, id, county_id, province_id))
+        cls.__list.append(cls(name, id, county_id, province_id))
 
     @classmethod
-    def get_communities_list(cls):
-        return cls.__communities_list
+    def get_list(cls):
+        return cls.__list
